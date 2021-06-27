@@ -1,0 +1,128 @@
+Task 1 --
+
+CREATE USER USER1219 IDENTIFIED BY iutcse;
+
+ERROR at line 1:
+ORA-65096: invalid common user or role name
+
+alter session set "_ORACLE_SCRIPT"=true;  /// dont write ever 
+
+
+GRANT CREATE SESSION ,RESOURCE TO USER1219;
+
+GRANT UNLIMITED TABLESPACE TO USER1219;
+
+
+
+Task 2 --
+
+#( in player_table kit_no column should be the primary key because it is unique for each players in this table)
+
+CREATE TABLE Players_table
+(
+	Kit_no INT PRIMARY KEY,
+	Name VARCHAR2(20)
+	Age INT,
+	Batting_style VARCHAR2(7),
+	Domestic_Team VARCHAR2(20),
+	Height INT
+);
+
+Age INT,
+*
+ERROR at line 5:
+ORA-00907: missing right parenthesis
+
+
+CREATE TABLE Players_table
+(
+	Kit_no INT PRIMARY KEY,
+	Name VARCHAR2(20),
+	Age INT,
+	Batting_style VARCHAR2(7),
+	Domestic_Team VARCHAR2(20),
+	Height INT
+);
+
+
+
+
+
+CREATE TABLE Score_table
+(
+	Kit_No INT,
+	Run INT,
+	Competition VARCHAR(10)
+);
+
+
+
+
+
+Task 3--
+
+INSERT INTO Players_table VALUES(28,'Tamim',29,'left','Chittagong',71);
+
+
+INSERT INTO Players_table VALUES(28,'Taskin',24,'left','Chittagong',81);
+
+ERROR at line 1:
+ORA-00001: unique constraint (USER1219.SYS_C007475) violated
+
+#this means the the unique constraint is violated. Thus shows us that the constraint kit_no should be unique
+
+# we can also use the command below to find the primary key as it will show NOT NULL
+
+DESC Players_table;
+
+
+
+Task 4--
+
+# in scores_table we can not assign Kit_no as the primary key because it shows the scores of the players in table_1 
+  in different competition. That means a single player can participate in both competition thus having the same kit_no .
+  Since the kit_no column is not unique(we can see row 1 and row 2 kit_no column matches) it cannot be used as primary key .
+
+
+
+
+Task 5--
+
+INSERT INTO Players_table VALUES(45,'Kayes',31,'left','Khulna',67);
+INSERT INTO Players_table VALUES(68,'Mominul',27,'left','Chittagong',63);
+INSERT INTO Players_table VALUES(75,'Shakib',31,'left','Khulna',69);
+INSERT INTO Players_table VALUES(15,'Mushfiq',31,'Right','Rajshahi',64);
+
+INSERT INTO Scores_table VALUES(28 , 154, 'ODI');
+
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+INSERT INTO Score_table VALUES(28 , 154, 'ODI');
+INSERT INTO Score_table VALUES(28 , 206, 'Test');
+INSERT INTO Score_table VALUES(45 , 144, 'ODI');
+INSERT INTO Score_table VALUES(68 , 60, 'ODI');
+INSERT INTO Score_table VALUES(45 , 150, 'Test');
+INSERT INTO Score_table VALUES(75 , 134, 'ODI');
+INSERT INTO Score_table VALUES(15 , 219, 'Test');
+
+
+
+
+Task 6--
+
+SELECT * FROM Players_table;
+SELECT * FROM Score_table;
+
+
+
+
+Task 7--
+
+INSERT INTO Score_table VALUES(15 , 144, 'ODI');
+
+
+
+
+
+

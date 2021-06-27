@@ -1,0 +1,49 @@
+//190041219
+
+
+@D:/Study/Semester_3/Assingnments_and_lab_works/LABS/Database_Lab/Week_4/Citizen_DDL_DML.sql
+
+1.SELECT * FROM Citizen;
+
+2.SELECT c_name, age , occupation
+  FROM Citizen ;
+
+3. SELECT c_name FROM Citizen WHERE C_HOME='Dhaka';
+
+4.SELECT c_name FROM Citizen WHERE SALARY<90000;
+
+5. SELECT c_name,c_home FROM Citizen  WHERE age<45;
+
+6. SELECT * FROM Citizen  WHERE gender='Female';
+
+7. SELECT * FROM Citizen  WHERE Occupation IN('Engineer','Doctor','Retired');
+
+8. SELECT c_id,c_name, salary FROM Citizen WHERE  Occupation IN('Musician','Business');
+
+9. SELECT * FROM Citizen WHERE Occupation='Doctor' OR Occupation='Teacher';
+
+10. SELECT * FROM Citizen WHERE Occupation='Engineer' ORDER BY Salary ASC;
+
+11. SELECT c_name,age FROM Citizen ORDER BY age,c_name ASC;
+
+12. SELECT DISTINCT age AS Unique_Age From Citizen;
+
+13. UPDATE Citizen SET salary = salary + salary*0.4 WHERE NOT Occupation ='Retired';
+
+14. SELECT * FROM Citizen WHERE Gender='Male' AND Salary > 40000 ;
+
+15. SELECT * FROM Citizen WHERE Salary NOT BETWEEN 30000 AND 50000;
+
+16. SELECT salary FROM Citizen WHERE age NOT BETWEEN 30 AND 55;
+
+17. UPDATE Updated_Citizen SET c_home='Chattogram' WHERE c_home='Ctg';
+
+18.DELETE FROM Updated_Citizen WHERE rownum<=10;
+
+19. UPDATE Updated_citizen SET age=age+10 , new_salary = new_salary + new_salary*0.3;
+
+20.SELECT c_id,c_name,salary,new_salary FROM Citizen NATURAL JOIN updated_citizen;
+
+	//OR 
+
+	//SELECT * FROM Citizen,updated_citizen WHERE  citizen.c_id = updated_citizen.c_id;

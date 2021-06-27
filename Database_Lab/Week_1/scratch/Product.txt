@@ -1,0 +1,6 @@
+Product_id Name Price($) Weight(kg)
+1 Pampers 20 2
+2 doge_meal 1000 66
+3 normal_meal 999 41
+45 raw_fish 500 6
+32 dried_carp 144 32

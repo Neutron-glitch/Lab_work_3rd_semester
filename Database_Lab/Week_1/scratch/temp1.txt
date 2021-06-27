@@ -1,0 +1,21 @@
+Customer_id name age gender no_of_purchases customer_type
+2 Thor 23 Male 10 Moderate
+44 Doge 07 Male 20 Moderate
+21 Cheem 23 Male 230 Moderate
+25 All_Might 27 Male 19 Moderate
+122 Saitama 26 Male 21 Moderate
+5 Mikasa 21 Female 15 Moderate
+7 Bruce_Wayne 46 Male 35 Moderate 
+
+
+
+
+Product_id Name Price($) Weight(kg)
+1 Pampers 20 2
+2 doge_meal 1000 66
+3 normal_meal 999 41
+89 dried_salmon 1540 25
+45 raw_fish 500 6
+12 raw_octopus 1220 14
+32 dried_carp 144 32
+5 water_runner 2348 56
