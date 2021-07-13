@@ -1,0 +1,80 @@
+1.There is 1 to many relationship between hospital and admiited because there can be multiple addmissions in a hospital and 1 addmission in hospital
+2.There is M to M relationship between books and library because a single library can have multiple books.
+3.There is 1 to 1 relationship between driving_L and National Database because a citizen cannot have multiple driving licence .
+4.There is 1 to many relationship between National Database and Admitted because a citizen can be admitted multiple hospitals.
+5.There many to one relatioship beteween Issue and National Database because a citizen can have multiple books .
+6.There is M to M relationshp between Issue and the Books because many citizens can borrow multiple books.
+7.There is many to one relationship between books and publishers because publisher can publish multiple books but a book has only one publisher .
+
+CREATE TABLE National_Database(
+NID int ,
+Name varchar(30),
+DOB date,
+Blood_Group varchar(5),
+Address varchar(255),
+Professionn varchar(255),
+Salary int,
+CONSTRAINT Nat_data_pk PRIMARY KEY (NID),
+);
+
+CREATE TABLE hosp_admission(
+admission_id int primary key;
+time date,
+reason varchar(100),
+NID foreign key references Citizen(NID),
+Hospital_id foreign key refences Hospital(Hospital_id)
+);
+
+CREATE TABLE Hospital(
+Name varchar(30),
+Hospital_id int primary key,
+Loation varchar(255),
+Year_OF_estd int,
+total_cap int
+);
+
+
+CREATE TABLE Driving_license(
+Name varchar(30),
+Address varchar(50),
+DOB date,
+licence_No int primary key,
+Issue_Date date,
+expire_date date,
+N_ID int foreign key references National Database(NID)
+);
+
+
+CREATE TABLE Issue(
+Borrowal_id int primary key,
+Date_of_return date,
+Borrowal_Date date,
+NID int foreign key references citizen(NID),
+Book_ID int foreign key references Book_List(Book_ID)
+);
+
+
+CREATE TABLE Books(
+title varchar(30),
+price int,
+category varchar(40),
+Book_ID int primary key,
+P_ID int foreign key references Publishers(P_ID),
+L_ID int foreign key references Library(L_ID)
+);
+
+
+CREATE TABLE Library(
+ID int primary key,
+name varchar(50),
+Location varchar(255)
+);
+
+
+CREATE TABLE publishers(
+Name varchar(50),
+year int,
+P_ID int primary key,
+Country varchar(50),
+Reputation varchar(20)
+);

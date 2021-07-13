@@ -1,0 +1,51 @@
+1. There is 1 to many relationship between Vehicles and Citizen because one citizen can have multiple vechicles but vechicles can not have multiple owners
+2. There is 1 to many relationship between Vehicles and Accident because 1 vehicle may face multiple accidents.
+3. There is 1 to 1 relationship between Citizens and Driving license because 1 citizen may have at most 1 license.
+
+
+CREATE TABLE Accident
+(
+    Vehicles_id INT,
+    DATE DATE,
+    Place VARCHAR2(30),
+    LICENSE_NO INT,
+    CONSTRAINT Accident_pk PRIMARY KEY(Vehicles, DATE, PLACE),
+    CONSTRAINT Accident_fk FOREIGN KEY(LICENSE_ID) REFERENCES (DRIVING_LICENSE),
+);
+
+
+CREATE TABLE DRIVING_LICENSE
+(
+    LICENSE_NO INT,
+    NID INT,
+    ISSUE_DATE VARCHAR2(30),
+    EXPIRE_DATE VARCHAR2(30),
+    BLOOD_GROUP VARCHAR2(30),
+    CONSTRAINT LICENSE_pk PRIMARY KEY (LICENSE_NO)
+);
+
+
+CREATE TABLE CITIZEN
+(
+    NID INT,
+    LICENSE_ID INT,
+    NAME VARCHAR2(30),
+    DATE_OF_BIRTH VARCHAR2(30),
+    ADDRESS VARCHAR2(30),
+    CONTACT_NO VARCHAR2(30),
+    CONSTRAINT CITIZEN_pk PRIMARY KEY (NID),
+    CONSTRAINT CITIZEN_fk FOREIGN KEY (LICENSE_NO) REFERENCES (DRIVING_LICENSE)
+);
+
+CREATE TABLE VEHICLE
+(
+    VEHICLES_ID INT,
+    NID INT,
+    TYPE VARCHAR2(30),
+    REG_DATE DATE,
+    DESCRIPTION VARCHAR2(30),
+    V_COLOR VARCHAR2(30),
+    ENGINE_ID INT,
+    CONSTRAINT VEHICLE_pk PRIMARY KEY (VEHICLES_ID),
+    CONSTRAINT VEHICLE_fk FOREIGN KEY(NID) REFERENCES (CITIZEN)
+);
