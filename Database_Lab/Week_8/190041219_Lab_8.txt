@@ -1,0 +1,151 @@
+--TASK 1
+
+CREATE TABLE Branch
+(
+B_ID INT,
+City VARCHAR2(20),
+Street VARCHAR2(30),
+Postcode INT,
+CONSTRAINT Branch_pk PRIMARY KEY(B_ID)
+);
+
+
+CREATE TABLE Employee
+(
+E_ID INT,
+F_Name VARCHAR2(30),
+L_Name VARCHAR2(30),
+Sex VARCHAR2(10),
+Dob DATE,
+Position VARCHAR2(30),
+B_ID INT,
+Salary INT,
+CONSTRAINT Employee_pk PRIMARY KEY(E_ID),
+CONSTRAINT employee_fk FOREIGN KEY(B_ID) REFERENCES Branch(B_ID) 
+);
+
+--We did not use cascading delete on employee because if we delete a row branch the employees associated with that branch will be deleted  
+
+
+CREATE TABLE House
+(
+City VARCHAR2(20),
+Street VARCHAR2(30),
+Postcode INT,
+Type VARCHAR2(20),
+No_of_rooms INT,
+Rent INT,
+CONSTRAINT House_pk PRIMARY KEY(City,Street,Postcode)
+);
+
+
+CREATE TABLE Client 
+(
+C_ID INT,
+F_Name VARCHAR2(30),
+L_Name VARCHAR2(30),
+Phone VARCHAR2(10),
+Email VARCHAR2(30),
+Acc_type VARCHAR2(30),
+Pref_Rent INT,
+CONSTRAINT Client_pk PRIMARY KEY(C_ID)
+);
+
+
+CREATE TABLE Client_visit_House
+(
+Vist_ID INT,
+C_ID INT,
+City VARCHAR2(20),
+Street VARCHAR2(30),
+Postcode INT,
+Date DATE,
+Comment VARCHAR2(20),
+CONSTRAINT Client_visit_House_pk PRIMARY KEY(Visit_ID),
+CONSTRAINT Client_visit_House_fk FOREIGN KEY(C_ID) REFERENCES Client(C_ID) ON DELETE CASCADE,
+CONSTRAINT Client_visit_House_fk2 FOREIGN KEY(City,Street,Postcode) REFERENCES House(City,Street,Postcode) ON DELETE CASCADE
+);
+
+CREATE TABLE Branch_register_client
+(
+Register_no INT,
+Assign_Staff INT,
+C_ID INT,
+CONSTRAINT Branch_register_client_pk PRIMARY KEY(Register_no),
+CONSTRAINT Branch_register_client_fk FOREIGN KEY(C_ID) REFERENCES Client(C_ID) ON DELETE CASCADE,
+CONSTRAINT Branch_register_client_fk2 FOREIGN KEY(Assign_staff) REFERENCES Employee(E_ID) ON DELETE CASCADE
+);
+
+
+--Task 2
+
+Create VIEW Visiting_list as
+Select C_ID,F_name,L_name,Phone,Date,Street,Postcode,City 
+from Client,Client_visit_House where Client.C_ID = Client_visit_House.C_ID;
+
+
+
+Create VIEW HOUSE_VISIT_HISTORY as
+select Visiting_List.City,Visiting_List.Street,Visiting_List.Postcode, Counter(C_ID)
+group by Visiting_List.City,Visiting_List.Street,Visiting_List.Postcode
+from VIEW Visiting_list;
+
+
+
+--Task 3
+
+Create or Replace View Employee_List as
+Select Branch.B_ID,Branch.City,Employee.E_ID,Employee.F_name,Employee.Position 
+From Employee,Branch where Branch.B_ID = Employee.B_ID;
+
+
+
+--task 4
+
+CREATE USER Customer IDENTIFIED BY customer123;
+CREATE USER Staff IDENTIFIED BY staffF123;
+CREATE USER Admin IDENTIFIED BY admin123;
+
+GRANT CREATE SESSION TO CUSTOMERS;
+GRANT CREATE SESSION TO STAFF;
+GRANT CREATE SESSION TO ADMIN;
+
+CREATE  ROLE ROLE_READ_ONLY;
+CREATE  ROLE ROLE_MODIFY; 
+CREATE  ROLE ROLE_ADMIN;
+
+GRANT SELECT ON Client TO ROLE_READ_ONLY;
+
+GRANT ROLE_READ_ONLY TO ROLE_MODIFY;
+
+GRANT SELECT ON Employee TO ROLE_MODIFY;
+
+GRANT  INSERT ON Employee TO ROLE_MODIFY;
+
+GRANT  DELETE ON Employee TO ROLE_MODIFY;
+
+GRANT  UPDATE ON Employee TO ROLE_MODIFY;
+
+GRANT  INSERT ON Client TO ROLE_MODIFY;
+
+GRANT  DELETE ON Client TO ROLE_MODIFY;
+
+GRANT  UPDATE ON Client TO ROLE_MODIFY;
+
+GRANT ROLE_READ_ONLY TO ROLE_ADMIN;
+
+GRANT ROLE_MODIFY TO ROLE_ADMIN;
+
+
+GRANT ROLE_READ_ONLY TO Customers;
+
+GRANT ROLE_MODIFY TO Staff;
+
+GRANT ROLE_ADMIN TO Admin;
+
+
+
+
+
+
+
